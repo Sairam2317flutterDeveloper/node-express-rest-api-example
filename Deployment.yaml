@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mynodesjsdeployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mynodejs
+  template:
+    metadata:
+      labels:
+        app: mynodejs
+    spec:
+      containers:
+      - name: nodejscontainer
+        image: <Image>
+        
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mynodejsservice
+spec:
+  type: LoadBalancer   
+  selector:
+    app: mynodejs
+  ports:
+  - port: 8073
+    targetPort: 8000

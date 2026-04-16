@@ -1,14 +1,10 @@
 FROM node:18-alpine
 
+RUN apk update && apk add --no-cache python3 make g++
+
 WORKDIR /app
-
-# 🔥 Add this (important)
-RUN apk add --no-cache python3 make g++
-
-COPY package*.json ./
+COPY . .
 RUN npm install
 
-COPY . .
-
-EXPOSE 3000
+EXPOSE 8000
 CMD ["node", "server.js"]
